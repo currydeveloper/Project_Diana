@@ -12,4 +12,17 @@ public class ScimResource {
     public String ResourceTypes(){
         return ResourceTypeValue.getValue();
     }
+    @GET
+    @Path("/ServiceProviderConfig")
+    @Produces("application/json")
+    public String ServiceProviderConfig(){
+        return ServiceProviderConfigValue.getValue();
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/Schemas")
+    public String Schemas(){
+        return SchemasValue.getValue();
+    }
 }

@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("unchecked")
 public class ResourceTypeValue {
     private static Logger log=LogManager.getLogger(ResourceTypeValue.class);
     public static String getValue() {
@@ -19,7 +20,7 @@ public class ResourceTypeValue {
         type.put("schema", "urn:ietf:params:scim:schemas:core:2.0:User");
         type.put("endpoint",  "/Users");
         JSONObject meta=new JSONObject();
-        meta.put("location", "http://localhost:10090/SCIM_REST_API/rest/ResourceTypes");
+        meta.put("location", "http://localhost:13080/scim/v1/ResourceTypes");
         meta.put("resourceType", "ResourceType");
         type.put("meta", meta);
         JSONArray schema=new JSONArray();
