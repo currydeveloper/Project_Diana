@@ -15,9 +15,12 @@ public class DatabaseConnection {
         log.info("Starting the database properties file reading");
         String fileName="db.properties";
         try {
+            log.info("Starting the try Block");
             Properties properties=new Properties();
             inputStream=getClass().getClassLoader().getResourceAsStream(fileName);
+            log.info("got the Input Stream "+inputStream);
             if(null!=inputStream){
+                log.debug("Input Stream is not null ");
                 properties.load(inputStream);
             }else{
                 log.error("Database Properties FIle is missing "+fileName);
@@ -27,7 +30,7 @@ public class DatabaseConnection {
 
         }
     }
-    public Connection getConnection(){
-
-    }
+//    public Connection getConnection(){
+//        return ;
+//    }
 }
