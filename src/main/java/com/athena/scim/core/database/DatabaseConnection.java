@@ -10,13 +10,13 @@ import java.util.Properties;
 
 public class DatabaseConnection {
     private static Logger log= LogManager.getLogger(DatabaseConnection.class);
-    private InputStream inputStream;
-    public void getDatabaseValues(){
+    public Properties getDatabaseValues(){
         log.info("Starting the database properties file reading");
         String fileName="db.properties";
+        InputStream inputStream;
+        Properties properties=new Properties();
         try {
             log.info("Starting the try Block");
-            Properties properties=new Properties();
             inputStream=getClass().getClassLoader().getResourceAsStream(fileName);
             log.info("got the Input Stream "+inputStream);
             if(null!=inputStream){
@@ -27,10 +27,27 @@ public class DatabaseConnection {
                 throw new FileNotFoundException("Properties File Missing "+fileName+" not found in classpath");
             }
         }catch (Exception e){
-
+        log.error("Error in the Database Connection for Catch Block");
+        log.error("Error is "+e);
         }
+        return properties;
     }
-//    public Connection getConnection(){
-//        return ;
-//    }
+    public Connection getConnection(){
+        log.debug("Starting the get Connection Method");
+        log.info("Retrieving Properties from the getDB Values method");
+        Properties dbProperties=getDatabaseValues();
+        Connection dbConnection=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            log.debug("Starting the try block in the getConnection method.");
+            String url=(String) dbProperties.get("url");
+            String uname=dbProperties.getProperty("username");
+            String password=dbProperties.getProperty("password");
+            dbConnection=DriverManager.getConnection(url,uname,password);
+        }
+        catch (Exception e){
+            log.error("Error occured in the GetConnection method with the following error : \t"+e);
+        }
+        return dbConnection;
+    }
 }
